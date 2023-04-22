@@ -17,9 +17,9 @@
               <h2>Total: <%= totalSum %></h2>
             </div>
             <div class="centered">
-              <button id="order-btn" class="btn"></button>
-              <script src="https://js.stripe.com/v3/"></script>
-              <script>
+              <button id="order-btn" class="btn">order</button>
+              <script crossorigin="anonymous" src="https://js.stripe.com/v3/"></script>
+              <script crossorigin="anonymous">
                   var stripe = Stripe('pk_test_51MqdzMIQZqJjMKF7muuMkGRkX48xdwhoEy5qwQtzeVC9LxvOp0aXYLDy0PkYMEC0gIPapESm2AlyjBgKJC7S2Fy600hegjPSoW');
                   var orderBtn = document.getElementById('order-btn');
                   orderBtn.addEventListener('click', () => {

@@ -2,15 +2,12 @@ const fs = require('fs');
 const path = require('path');
 const stripe = require('stripe')(process.env.STRIPE_KEY);
 
-let st =
-  'sk_test_51MqdzMIQZqJjMKF7uXYJVbHvp9OJxXjzjf8c5mp6Z2YaYo3gVCnVfBO9iLDdQyJ5IDnJfMbqBwF8ZzwgahG9fjOL00YtrjLG0c';
-
 const PDFDocument = require('pdfkit');
 
 const Product = require('../models/product');
 const Order = require('../models/order');
 
-const ITEMS_PER_PAGE = 1;
+const ITEMS_PER_PAGE = 2;
 
 exports.getProducts = (req, res, next) => {
   const page = +req.query.page || 1;
@@ -309,38 +306,6 @@ exports.getInvoice = (req, res, next) => {
         bold: true,
       });
       pdfDoc.end();
-
-      // Downloading whole file
-      // fs.readFile(invoicePath, (err, data) => {
-      //   if (err) {
-      //     return next(err);
-      //   }
-      //   res.setHeader('Content-Type', 'application/pdf');
-      //   // open in browser
-      //   // res.setHeader(
-      //   //   'Content-Disposition',
-      //   //   'inline; filename="' + invoiceName + '"'
-      //   // );
-      //   // attachment = download + adjust filename
-      //   res.setHeader(
-      //     'Content-Disposition',
-      //     'attachment; filename="' + invoiceName + '"'
-      //   );
-      //   res.send(data);
-      // });
-
-      // Streaming file
-      // const file = fs.createReadStream(invoicePath);
-      // res.setHeader('Content-Type', 'application/pdf');
-      // res.setHeader(
-      //   'Content-Disposition',
-      //   'attachment; filename="' + invoiceName + '"'
-      // );
-
-      // // pipe -forward- data read into the stream to response
-      // // Response Obj is a writable stream
-      // // you give the browser chunks and the browser will concat them
-      // file.pipe(res);
     })
     .catch((err) => next(err));
 };

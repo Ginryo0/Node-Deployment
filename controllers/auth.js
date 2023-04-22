@@ -1,18 +1,19 @@
 const crypto = require('crypto');
 const { validationResult } = require('express-validator/check');
 
+const dotenv = require('dotenv');
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
 
 const User = require('../models/user');
 const { reset } = require('nodemon');
+dotenv.config();
 
 const transporter = nodemailer.createTransport(
   sendgridTransport({
     auth: {
-      api_key:
-        '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',
+      api_key: process.env.SEND_GRID,
     },
   })
 );
@@ -143,7 +144,7 @@ exports.postSignup = (req, res, next) => {
           res.redirect('/login');
           return transporter.sendMail({
             to: email,
-            from: 'ginryoix@gmail.com',
+            from: 'ginryo16@gmail.com',
             subject: 'Signup Succeeded',
             html: '<h1>Welcome to node shop!</h1>',
           });
